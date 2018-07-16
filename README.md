@@ -7,7 +7,7 @@ Device can be used without HomeKit abilities, just remove Raspberry Pi. It will 
 # Important
 
 1. "PCB Layout Designer 6.0" software needed to open files from PCB folder.
-2. Default (hardcoded in firmware) sensor type is NTC with nominal resistanse = 15KOhm, can be tuned if needed.
+2. Default (hardcoded in firmware) sensor type is NTC with nominal resistanse = 15KOhm, can be tuned if needed. The same nominal resistors used on MCUs board to correct value reading.
 3. PSU used: MeanWell PS-25-5 (out 5V 5A).
 4. Knob used part number: 41026-1 (diameter = 45.1mm) -  see Knob.pdf in Enclosure folder.
 5. Enclosure is "3D-printed" with ABS plastic (hotbed = 90'C, hotend = 238'C, infill = 50%).
