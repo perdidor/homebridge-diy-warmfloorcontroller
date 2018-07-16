@@ -7,7 +7,7 @@ Device can be used without HomeKit abilities, just remove Raspberry Pi. It will 
 # Important
 
 1. "PCB Layout Designer 6.0" software needed to open files from PCB folder.
-2. Raspberry Pi board uses 3V3 logic levels, so [I2C](https://en.wikipedia.org/wiki/I2C) bus pullups must be set to 3.3V to avoid burnout of RPi Rx pin. Comm LED on MCUs board indicates I2C activity.
+2. Raspberry Pi board uses 3V3 logic levels, so [I2C](https://en.wikipedia.org/wiki/I2C) bus pullups must be set to 3.3V to avoid burnout of RPi pins. Comm LED on MCUs board indicates I2C activity.
 3. I2Cb (b = buffered, long-range I2C) pullups used if there is no "neighbor" on buffered I2C bus with pullup resistors. Long-range (up to 20m on Cat.5 twisted pair) I2C communications done by P82B715 chip. Required for other\another devices control.
 4. Default (hardcoded in firmware) sensor type is NTC with nominal resistanse = 15KOhm, can be tuned if needed. The same nominal resistors used on MCUs board to correct value reading.
 5. PSU used: MeanWell PS-25-5 (out 5V 5A). It's input (220VAC) connected to 1st zone relay input, so no additional wire needed.
