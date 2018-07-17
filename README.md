@@ -6,6 +6,7 @@ Device can be used without HomeKit abilities, just remove Raspberry Pi. It will 
 
 # Important
 
+0. "Head MCU" is Arduino Nano V3. "Sensor MCU" is AtMega328P-PU @8MHz internal clock, placed on same board with Head MCU. "Display MCU" is AtMega328P-PU @8MHz internal clock, located on digital display board.
 1. "PCB Layout Designer 6.0" software needed to open files from PCB folder.
 2. Raspberry Pi board uses 3V3 logic levels, so [I2C](https://en.wikipedia.org/wiki/I2C) bus pullups must be set to 3.3V to avoid burnout of RPi pins. Comm LED on MCUs board indicates I2C activity.
 3. I2Cb (b = buffered, long-range I2C) pullups used if there is no "neighbor" on buffered I2C bus with pullup resistors. Long-range (up to 20m on Cat.5 twisted pair) I2C communications done by P82B715 chip. Required for other\another devices control.
