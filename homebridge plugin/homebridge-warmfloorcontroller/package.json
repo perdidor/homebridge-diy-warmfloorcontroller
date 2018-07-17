@@ -1,0 +1,41 @@
+{
+
+  "name": "homebridge-warmfloorcontroller",
+
+  "version": "1.0.0",
+
+  "description": "homebridge plugin to control warm floor thermostat",
+
+  "main": "index.js",
+
+
+  "scripts": {
+
+    "test": "echo \"No test specified\" && exit 1"
+
+  },
+
+
+  "keywords": [
+
+    "homekit",
+
+    "thermostat",
+
+    "warmfloor",
+
+    "homebridge-plugin"
+
+  ],
+
+
+  "dependencies": {
+    "i2c": "git+https://github.com/kelly/node-i2c"
+  },
+
+
+  "author": "Gordon Freeman <gfr20141201@gmail.com>",
+
+  "license": "MIT"
+
+}

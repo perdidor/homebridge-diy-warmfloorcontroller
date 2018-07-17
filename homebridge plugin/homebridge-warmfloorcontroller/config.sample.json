@@ -1,0 +1,36 @@
+{
+
+  "bridge": {
+
+    "name": "Homebridge",
+
+    "username": "CC:22:3D:E3:CE:30",
+
+    "port": 51826,
+    "pin": "031-45-154"
+
+  },
+
+  "description": "",
+
+  "accessories": [
+
+    {
+
+      "accessory": "Thermostat",
+
+      "name": "Warm Floor Thermostat",
+
+      "manufacturer": "Gordon Freeman",
+
+      "model": "Warm Floor 5-zone controller",
+ 
+     "serial": "1234567890",
+
+    }
+
+  ],
+
+  "platforms": []
+
+}
