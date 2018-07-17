@@ -14,6 +14,10 @@ Device can be used without HomeKit abilities, just remove Raspberry Pi. It will 
 6. Knob used part number: 41026-1 (diameter = 45.1mm) -  see Knob.pdf in Enclosure folder.
 7. Enclosure is "3D-printed" with ABS plastic (hotbed = 90'C, hotend = 238'C, infill = 50%).
 
+Assembled without cover:
+
+<img src="https://github.com/perdidor/homebridge-diy-warmfloorcontroller/blob/master/Photos/IMG_4547.JPG" width="auto">
+
 Live breadboard demo:
 
 [![Video](http://img.youtube.com/vi/IP8oJ3PyP9c/0.jpg)](https://www.youtube.com/watch?v=IP8oJ3PyP9c)
