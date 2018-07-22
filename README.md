@@ -14,6 +14,7 @@ Device can be used without HomeKit abilities, just remove Raspberry Pi. It will 
 5. PSU used: MeanWell PS-25-5 (out 5V 5A). It's input (220VAC) connected to 1st zone relay input, so no additional wire needed.
 6. Knob used part number: 41026-1 (diameter = 45.1mm) -  see Knob.pdf in Enclosure folder.
 7. Enclosure is "3D-printed" with ABS plastic (hotbed = 90'C, hotend = 238'C, infill = ~~50%~~ 60% recommended).
+8. Celsium\Farenheit display mode affects only hardware display on device.
 
 Finished device:
 
