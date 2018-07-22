@@ -1,6 +1,6 @@
 var i2c = require('i2c');
 var sendTargetState = 1;
-var sendTargetTemp = 1;
+var setTargetTemp = 1;
 var address = 0x33;
 var wire = new i2c(address, {device: '/dev/i2c-1'});
 var acc, Service, Characteristic;
@@ -59,11 +59,11 @@ FloorThermostat.prototype.getServices = function () {
 	  WarmFloorService
 	  .getCharacteristic(Characteristic.TargetTemperature)
           .on('set', (value, callback) => {
-	    if (sendTargetTemp == 1) {
-		wire.write([value, 3], function(err) {});
+	    if (setTargetTemp == 1) {
+		wire.write([value, 3, temperatureDisplayUnits], function(err) {});
 		consolelog("New TargetTemperature: " + value);
               } else {
-                  sendTargetTemp = 1;
+                  setTargetTemp = 1;
                 };
 	      callback(null);
 	    })
@@ -72,7 +72,12 @@ FloorThermostat.prototype.getServices = function () {
 	  .getCharacteristic(Characteristic.TemperatureDisplayUnits)
           .on('get', this.getTemperatureDisplayUnits.bind(this))
 	  .on('set', (value, callback) => {
-	    value = 0;
+	     if (sendTempDisplayUnits == 1) {
+              wire.write([0, 4, value], function(err) {});
+              consolelog("New Temperature display units: " + value);
+              } else {
+                  sendTempDisplayUnits = 1;
+                };
             callback(null);
             });
 	  WarmFloorService
@@ -86,7 +91,7 @@ FloorThermostat.prototype.getServices = function () {
 		  value = 1;
 		};
             if (sendTargetState == 1) {
-	      wire.write([0, value], function(err) {});
+	      wire.write([0, value, temperatureDisplayUnits], function(err) {});
 	      consolelog("New TargetHeatingCoolingState: " + value);
 	      } else {
 		  sendTargetState = 1;
@@ -99,21 +104,26 @@ FloorThermostat.prototype.getServices = function () {
 	}
 
 FloorThermostat.prototype.update = function () {
-	wire.read(3, function(err, res) {
+	wire.read(4, function(err, res) {
 	  if (!err) {
 	      if (currentHeatingCoolingState != res[2]) {
 		consolelog("New state from device: " + res[2]);
 		currentHeatingCoolingState = res[2];
 	      }
+	      if (temperatureDisplayUnits != res[3]) {
+		consolelog("New target temperature from device: " + res[3]);
+		temperatureDisplayUnits = res[3];
+		sendTempDisplayUnits = 0;
+		WarmFloorService.setCharacteristic(Characteristic.TemperatureDisplayUnits, temperatureDisplayUnits);
+	      }
 	      if (targetTemperature != res[1]) {
                 consolelog("New target temperature from device: " + res[1]);
-		targetTemperature = res[1];
-		sendTargetTemp = 0;
-		WarmFloorService.setCharacteristic(Characteristic.TargetTemperature, targetTemperature);
+                targetTemperature = res[1];
+                setTargetTemp = 0;
+                WarmFloorService.setCharacteristic(Characteristic.TargetTemperature, targetTemperature);
               }
-	      if (currentTemperature != res[0]) {
-                //consolelog("New current temperature from device: " + res[0]);
-		currentTemperature = res[0];
+	       if (currentTemperature != res[0]) {
+                currentTemperature = res[0];
                 WarmFloorService.setCharacteristic(Characteristic.CurrentTemperature, currentTemperature);
               }
 	      sendTargetState = 0;
@@ -127,7 +137,7 @@ FloorThermostat.prototype.statePolling = function () {
 	  this.tout = setTimeout(function () {
 	    acc.update();
             acc.statePolling();
-	  }, 1000);
+	  }, 250);
 	}
 
 FloorThermostat.prototype.getCurrentTemperature = function (callback) {
@@ -139,7 +149,7 @@ FloorThermostat.prototype.getTargetTemperature = function (callback) {
         }
 
 FloorThermostat.prototype.getTemperatureDisplayUnits = function (callback) {
-	  callback(null, 0);
+	  callback(null, temperatureDisplayUnits);
         }
 
 FloorThermostat.prototype.getCurrentHeatingCoolingState = function (callback) {
