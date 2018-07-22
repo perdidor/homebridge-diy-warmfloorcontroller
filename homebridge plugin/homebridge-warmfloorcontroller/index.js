@@ -72,13 +72,9 @@ FloorThermostat.prototype.getServices = function () {
 	  .getCharacteristic(Characteristic.TemperatureDisplayUnits)
           .on('get', this.getTemperatureDisplayUnits.bind(this))
 	  .on('set', (value, callback) => {
-	     if (sendTempDisplayUnits == 1) {
-              wire.write([0, 4, value], function(err) {});
-              consolelog("New Temperature display units: " + value);
-              } else {
-                  sendTempDisplayUnits = 1;
-                };
-            callback(null);
+		wire.write([0, 4, value], function(err) {});
+		consolelog("New Temperature display units: " + value);
+		callback(null);
             });
 	  WarmFloorService
 	  .getCharacteristic(Characteristic.CurrentHeatingCoolingState)
