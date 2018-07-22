@@ -60,7 +60,8 @@ FloorThermostat.prototype.getServices = function () {
 	  .getCharacteristic(Characteristic.TargetTemperature)
           .on('set', (value, callback) => {
 	    if (setTargetTemp == 1) {
-		wire.write([value, 3, temperatureDisplayUnits], function(err) {});
+		errorcode = 0;
+		wire.write([value, 3, temperatureDisplayUnits], function(err) {errorcode = 1;});
 		consolelog("New TargetTemperature: " + value);
               } else {
                   setTargetTemp = 1;
@@ -72,7 +73,8 @@ FloorThermostat.prototype.getServices = function () {
 	  .getCharacteristic(Characteristic.TemperatureDisplayUnits)
           .on('get', this.getTemperatureDisplayUnits.bind(this))
 	  .on('set', (value, callback) => {
-		wire.write([0, 4, value], function(err) {});
+		errorcode = 0;
+		wire.write([0, 4, value], function(err) {errorcode = 1;});
 		consolelog("New Temperature display units: " + value);
 		callback(null);
             });
@@ -87,7 +89,7 @@ FloorThermostat.prototype.getServices = function () {
 		  value = 1;
 		};
             if (sendTargetState == 1) {
-	      wire.write([0, value, temperatureDisplayUnits], function(err) {});
+	      wire.write([0, value, temperatureDisplayUnits], function(err) {errorcode = 1;});
 	      consolelog("New TargetHeatingCoolingState: " + value);
 	      } else {
 		  sendTargetState = 1;
@@ -133,7 +135,7 @@ FloorThermostat.prototype.statePolling = function () {
 	  this.tout = setTimeout(function () {
 	    acc.update();
             acc.statePolling();
-	  }, 250);
+	  }, 1000);
 	}
 
 FloorThermostat.prototype.getCurrentTemperature = function (callback) {
